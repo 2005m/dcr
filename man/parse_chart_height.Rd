@@ -2,7 +2,7 @@
 % Please edit documentation in R/dcr_classfun.R
 \name{parse_chart_height}
 \alias{parse_chart_height}
-\title{Determine if chart height is given by num of px or % of window height}
+\title{Determine if chart height is given by num of px or \% of window height}
 \usage{
 parse_chart_height(height)
 }
@@ -10,6 +10,6 @@ parse_chart_height(height)
 \item{height}{The user specified height}
 }
 \description{
-Determine if chart height is given by num of px or % of window height
+Determine if chart height is given by num of px or \% of window height
 }
 

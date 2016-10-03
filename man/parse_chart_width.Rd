@@ -2,7 +2,7 @@
 % Please edit documentation in R/dcr_classfun.R
 \name{parse_chart_width}
 \alias{parse_chart_width}
-\title{Determine if chart width is given by num of px or % of window width}
+\title{Determine if chart width is given by num of px or \% of window width}
 \usage{
 parse_chart_width(width)
 }
@@ -10,6 +10,6 @@ parse_chart_width(width)
 \item{width}{The user specified width}
 }
 \description{
-Determine if chart width is given by num of px or % of window width
+Determine if chart width is given by num of px or \% of window width
 }
 

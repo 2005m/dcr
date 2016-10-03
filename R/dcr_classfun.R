@@ -87,9 +87,21 @@ html <- function(object, divs = FALSE, csv = FALSE, filename = NULL, input_bindi
   ## codes for each chart
   mhtml$codes <- paste(sapply(object@charts, chartcodes, object = object), collapse = "\n")
   mhtml$nochain <- nochain
-  mhtml$responsive_width_charts_js_var <- responsive_width_charts_js_var(object@charts)
-  mhtml$responsive_height_charts_js_var <- responsive_height_charts_js_var(object@charts)
-  mhtml$responive_charts_init <- "dcr_setResponsiveSizes();"
+
+  # check if any chart is responsive, if responsive make it resopnse
+  # modified on Eddie's code to make old apps (render_csv function) work
+  any_response <- any(sapply(object@charts, function(x) x@is_height_responsive | x@is_width_responsive))
+  if (any_response) {
+    mhtml$responsive_width_charts_js_var <- responsive_width_charts_js_var(object@charts)
+    mhtml$responsive_height_charts_js_var <- responsive_height_charts_js_var(object@charts)
+    mhtml$responive_charts_init <- "dcr_setResponsiveSizes();"
+    mhtml$windowOnResize <- "var wait;
+    window.onresize = function(){
+    clearTimeout(wait);
+    wait = setTimeout(dcr_reload, 200);
+    };"
+  }
+
   mhtml$tail <- html_tail(csv)
   mhtml <-  paste(unlist(mhtml), collapse = "\n")
   if (divs) {
@@ -123,7 +135,7 @@ js <- function(x) {
 }
 
 ##' Use other chart's dimension as the chart's dimension
-##' @param the id of the chart whose dimension will be used
+##' @param id the id of the chart whose dimension will be used
 ##' @export
 ##'
 use_dimension <- function(id) {
@@ -308,7 +320,7 @@ html_tail <- function(csv = FALSE) {
 #########################
 # Responsive chart sizes
 
-##' Determine if chart width is given by num of px or % of window width
+##' Determine if chart width is given by num of px or \% of window width
 ##' @param width The user specified width
 ##'
 parse_chart_width <- function(width) {
@@ -324,7 +336,7 @@ parse_chart_width <- function(width) {
   }
 }
 
-##' Determine if chart height is given by num of px or % of window height
+##' Determine if chart height is given by num of px or \% of window height
 ##' @param height The user specified height
 ##'
 parse_chart_height <- function(height) {

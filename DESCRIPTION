@@ -7,7 +7,11 @@ Authors@R: c(
     person("Xiangdong", "Gu", email = "xgu@massmutual.com", role = "cre"),
     person("MassMutual Financial Group", comment = "http://datascience.massmutual.com", role = "aut"))
 Maintainer: Xiangdong Gu <xgu@massmutual.com>
-Description: This package allows to create interactive multivariate charts using dc.js and crossfilter.js embed into shiny apps.
+Description: This package allows to create interactive multivariate charts using
+    dc.js and crossfilter.js embed into shiny apps.
 License: MIT
 LazyData: TRUE
-Imports: shiny, jsonlite
+Imports:
+    shiny,
+    jsonlite
+RoxygenNote: 5.0.1

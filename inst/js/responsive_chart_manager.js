@@ -29,8 +29,8 @@ function dcr_reload() {
 	location.reload();
 }
 
-var wait;
-window.onresize = function(){
-  clearTimeout(wait);
-  wait = setTimeout(dcr_reload, 200);
-};
+// var wait;
+// window.onresize = function(){
+//   clearTimeout(wait);
+//   wait = setTimeout(dcr_reload, 200);
+// };
