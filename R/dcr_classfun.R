@@ -151,25 +151,9 @@ chart_def <- function(e, global = FALSE) {
 }
 
 ## generate code part for dimension definitions
-dimension_def <- function(e){
-  if (!is.null(attr(e@dimension, "dimension", exact = TRUE))){
-    return("")
-  }
-  else if(length(e@dimension)==1){
-    sprintf(
-      "var %sDim = ndx.dimension(function(d) {return d.%s;});",
-      e@id, e@dimension
-    )
-  }
-  else if(length(e@dimension)==2){
-    sprintf(
-      "var %sDim = ndx.dimension(function(d) {return [d.%s,d.%s];});",
-      e@id, e@dimension[1], e@dimension[2]
-    )
-  }
-  else{
-    return("")
-  }
+dimension_def <- function(e) {
+  if (!is.null(attr(e@dimension, "dimension", exact = TRUE))) return("")
+  sprintf("var %sDim = ndx.dimension(function(d) {return d.%s;});", e@id, e@dimension)
 }
 
 ## generate code part for reduce function definitions
@@ -223,18 +207,7 @@ rowchart_order <- function(x) {
 ## function to determine type of dimension to automatically add x option
 auto_opts <- function(e, object) {
   dimid <- get_dimid(e@id, object)
-  num_dimensions <- length(object@charts[[dimid]]@dimension)
-  if(num_dimensions==1){
-    value <- object@data[[object@charts[[dimid]]@dimension]]
-  }
-  else if (num_dimensions==2){
-    value <- object@data[[object@charts[[dimid]]@dimension[2]]]
-  }
-  else{
-    stop(sprintf("Too many dimensions."))
-  }
-
-
+  value <- object@data[[object@charts[[dimid]]@dimension]]
   vtype <- ifelse(is.numeric(value), "numeric", class(value))
   ## if one options is function, run the function on e
   for (name in names(e@opts)) {
@@ -242,7 +215,7 @@ auto_opts <- function(e, object) {
     if (class(f) == "function") e@opts[[name]] <- f(e)
   }
   ## Automatically attach x axis definition for line chart and bar chart
-  if (e@type %in% c("barChart", "lineChart","seriesChart")) {
+  if (e@type %in% c("barChart", "lineChart")) {
     if (!("x" %in% names(e@opts))) {
       if (vtype == "numeric") {
         e@opts[["x"]] <- x_linear(range(value))
