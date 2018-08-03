@@ -7,7 +7,7 @@
 ##' @export
 ##'
 x_linear <- function(xlim) {
-  dc_code(sprintf("d3.scale.linear().domain(%s)", js(xlim)))
+  dc_code(sprintf("d3.scaleLinear().domain(%s)", js(xlim)))
 }
 
 ##' Generate ordinal scale used with x option
