@@ -75,7 +75,7 @@ html <- function(object, divs = FALSE, csv = FALSE, filename = NULL, input_bindi
   ## code part for data
   mhtml$code_data <- sprintf("%s;\n%s\nvar ndx = crossfilter(data);",
                              ifelse(csv,
-                                    sprintf("d3.csv('%s', function (data) {", filename),
+                                    sprintf("d3.csv('%s').then(function (data) {", filename),
                                     sprintf("var data = %s", jsonlite:::toJSON(object@data))),
                              map_fmt(object@data, csv))
   ## chart definitions
@@ -321,7 +321,7 @@ map_fmt <- function(data, csv = FALSE) {
   v_class <- sapply(data, class)
   ## date format
   date_vars <- names(v_class)[v_class == "Date"]
-  init_code <- "var dcrx_dateFormat = d3.time.format('%Y-%m-%d');\n"
+  init_code <- "var dcrx_dateFormat = d3.timeParse('%Y-%m-%d');\n"
   date_code <- sprintf("\td.%s = dcrx_dateFormat.parse(d.%s);", date_vars, date_vars)
   ## numeric format
   num_code <- character()
