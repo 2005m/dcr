@@ -42,8 +42,9 @@ renderChart_csv <- function(session, expr, divs = FALSE, input_binding = FALSE, 
     tdir <- tempdir()
     singleton(addResourcePath("dcr_temp", tdir))
     filename <- tempfile(tmpdir = "", fileext = ".csv")
-    filename_abs <- paste0(tdir, filename)
-    filename_rel <- paste0("dcr_temp/", filename)
+    filename <- gsub("\\\\", "", filename) # fix for windows
+    filename_abs <- file.path(tdir, filename)
+    filename_rel <- file.path("dcr_temp/", filename)
     ## remove temp csv file when session ended
     session$onSessionEnded(function() unlink(filename_abs))
     write.csv(chart@data, file = filename_abs, row.names = FALSE)
