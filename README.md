@@ -10,11 +10,16 @@ devtools:::install_github("massmutual/dcr")
 # Examples #
 - Input binding example (need **dplyr** package installed)
 ```
+if (!require(dplyr)) install.packages("dplyr")
 shiny::runGitHub("massmutual/dcr", subdir = "inst/example/input_binding")
 ```
 
 - Stock example. To run this example we need to install R packages **quantmod**, **dplyr** and **lubridate**
 ```
+if (!require(dplyr)) install.packages("dplyr")
+if (!require(quantmod)) install.packages("quantmod")
+if (!require(lubridate)) install.packages("lubridate")
+
 shiny::runGitHub("massmutual/dcr", subdir = "inst/example/stocks")
 ```
 
