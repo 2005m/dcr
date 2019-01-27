@@ -193,13 +193,14 @@ pluck_key <- function(var) simple_fun(sprintf("d.key.%s", var))
 ##'
 pluck_value <- function(var) simple_fun(sprintf("d.value.%s", var))
 
-##' Label axis ticks using Killo Mega Billion
+##' Label axis ticks using Killo Mega Billion Trillion
 ##' @export
 ##'
 tick_KMB <- function() dc_code("function (d) {
-  if (d >=1000000000) return d/1000000000 + 'B';
-  if (d >= 1000000) return d/1000000 + 'M';
-  if (d >= 1000) return d/1000 + 'K';
+  if (Math.abs(d) >= 1000000000000) return d/1000000000000 + 'T';
+  if (Math.abs(d) >= 1000000000) return d/1000000000 + 'B';
+  if (Math.abs(d) >= 1000000) return d/1000000 + 'M';
+  if (Math.abs(d) >= 1000) return d/1000 + 'K';
   return d;}")
 
 ##' Label function to add label to element of the chart
